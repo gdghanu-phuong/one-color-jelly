@@ -3,14 +3,14 @@ using UnityEngine;
 [System.Serializable]
 public class LevelData
 {
-    public int Level; 
-    public string TargetColor; 
-    public int Move;
+    public int level; 
+    public string targetColor; 
+    public int move;
 
     public LevelData(int level, string targetColor, int move)
     {
-        Level = level;
-        TargetColor = targetColor;
-        Move = move;
+        this.level = level;
+        this.targetColor = targetColor;
+        this.move = move;
     }
 }

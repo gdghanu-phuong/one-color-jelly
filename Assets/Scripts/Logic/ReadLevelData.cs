@@ -10,6 +10,9 @@ public class ReadLevelData : MonoBehaviour
     public TextMeshProUGUI levelText;
     public Image targetColor;
     public TextMeshProUGUI moveText;
+    public string color;
+    public int targetLevel;
+    public int moveLimited;
 
     void Start()
     {
@@ -53,13 +56,14 @@ public class ReadLevelData : MonoBehaviour
     }
     void DisplayData() 
     {         
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < levelDataList.Count; i++)
         {
-            LevelData levelData = levelDataList[0];
-            levelText.text = levelData.Level.ToString();
-            moveText.text = levelData.Move.ToString();
-            targetColor.sprite = GetColorSprite(levelData.TargetColor);
-            Debug.Log($"Level: {levelData.Level}, Target Color: {levelData.TargetColor}, Move: {levelData.Move}");
+            LevelData levelData = levelDataList[targetLevel - 1];
+            levelText.text = levelData.level.ToString();
+            moveLimited = levelData.move;
+            moveText.text = moveLimited.ToString();
+            targetColor.sprite = GetColorSprite(levelData.targetColor);
+            color = levelData.targetColor;
         }
     }
 }

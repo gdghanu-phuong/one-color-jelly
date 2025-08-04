@@ -5,51 +5,22 @@ using UnityEngine;
 
 public class ReadMapData : MonoBehaviour
 {
-    public GameObject emptyBlockPrefab;
-    public GameObject redBlockPrefab;
-    public GameObject blueBlockPrefab;
-    public GameObject greenBlockPrefab;
-    public GameObject yellowBlockPrefab;
-    public GameObject purpleBlockPrefab;
+    public BlockController blockController;
+    public ReadLevelData levelData;
+    public SceneController sceneController;
 
     public RectTransform mapParent;
     public RectTransform mapContainer;
     public float tileSize = 100f;
     public float space = 30f;
-    public int targetLevel = 3;
+    public BlockData[,] blockGrid;
 
-    public GameObject[,] blockGrid;
     public int colCount;
     public int rowCount;
     private Vector2 gridOffset;
-
-
     void Start() => ReadData();
 
-    GameObject GetBlockPrefab(string cell)
-    {
-        if (string.IsNullOrEmpty(cell))
-            return null;
-
-        if (int.TryParse(cell, out int number))
-        {
-            if (number == 0)
-                return emptyBlockPrefab;
-            return null;
-        }
-
-        return cell switch
-        {
-            "R" => redBlockPrefab,
-            "G" => greenBlockPrefab,
-            "B" => blueBlockPrefab,
-            "Y" => yellowBlockPrefab,
-            "P" => purpleBlockPrefab,
-            _ => null,
-        };
-    }
-
-    void SetUpMap(int rows, int cols)
+    void SetUpMap(int rowCount, int colCount)
     {
         float totalWidth = colCount * tileSize + (colCount - 1) * space;
         float totalHeight = rowCount * tileSize + (rowCount - 1) * space;
@@ -71,14 +42,16 @@ public class ReadMapData : MonoBehaviour
 
     void SetUpBlock(GameObject block, int row, int col, string cell) 
     {
-        RectTransform rt  = block.GetComponent<RectTransform>();
-        if (rt != null)
+       
+        if (block.TryGetComponent<RectTransform>(out var rt))
         {
             rt.sizeDelta = new Vector2(tileSize, tileSize);
             rt.anchoredPosition = GetBlockPosition(col, row);
         }
 
-        blockGrid[row, col] = block;
+        BlockData blockData = new(row, col, cell, block);
+        blockGrid[row, col] = blockData;
+
         if(cell != "0")
         {
             if (!block.TryGetComponent<SwipeController>(out var swipeController))
@@ -87,7 +60,10 @@ public class ReadMapData : MonoBehaviour
             }
             swipeController.row = row;
             swipeController.col = col;
+            swipeController.blockColor = cell;
             swipeController.mapData = this;
+            swipeController.levelData = levelData;
+            swipeController.sceneController = sceneController;
         }
     }
     void ReadData()
@@ -105,7 +81,7 @@ public class ReadMapData : MonoBehaviour
             string[] parts = trimmedLine.Split(',');
             if (int.TryParse(parts[0], out int levelNumber))
             {
-                if (levelNumber == targetLevel)
+                if (levelNumber == levelData.targetLevel)
                 {
                     isLevelFound = true;
                     levelLines.Clear();
@@ -127,7 +103,7 @@ public class ReadMapData : MonoBehaviour
 
         rowCount = levelLines.Count;
         colCount = levelLines.Max(line => line.TrimEnd(',').Split(',').Length);
-        blockGrid = new GameObject[rowCount, colCount];
+        blockGrid = new BlockData[rowCount, colCount];
         SetUpMap(rowCount, colCount);
 
         for (int i = 0; i < rowCount; i++)
@@ -138,14 +114,12 @@ public class ReadMapData : MonoBehaviour
             {
                 string cell = mapRow[j].Trim();
 
-                GameObject blockPrefab = GetBlockPrefab(cell);
+                GameObject blockPrefab = blockController.GetBlockPrefab(cell);
                 if (blockPrefab != null)
                 {
                     GameObject obj = Instantiate(blockPrefab, mapContainer);
                     SetUpBlock(obj, i, j, cell);
                 } 
-                
-
             }
         }
     }
