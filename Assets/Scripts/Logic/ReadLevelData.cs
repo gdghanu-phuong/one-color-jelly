@@ -2,22 +2,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.IO;
 
 public class ReadLevelData : MonoBehaviour
 {
+    public static ReadLevelData instance;
     public List<LevelData> levelDataList = new();
+    [SerializeField] private PersistentData persistentData;
     public TextMeshProUGUI levelText;
     public Image targetColor;
     public TextMeshProUGUI moveText;
     public string color;
-    public int targetLevel;
     public int moveLimited;
+    int currentLevel = 5;
 
     void Start()
     {
+        if (levelText == null && moveText == null && targetColor == null) return;
+        //int currentLevel = persistentData.TargetLevel;
         ReadData();
-        DisplayData();
+        DisplayData(currentLevel);
+    }
+
+    void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
     }
 
     Sprite GetColorSprite(string color)
@@ -54,16 +64,26 @@ public class ReadLevelData : MonoBehaviour
             levelDataList.Add(new LevelData(level, targetColor, move));
         }
     }
-    void DisplayData() 
-    {         
-        for (int i = 0; i < levelDataList.Count; i++)
-        {
-            LevelData levelData = levelDataList[targetLevel - 1];
+    void DisplayData(int currentLevel) 
+    {
+        for (int i = 0; i < levelDataList.Count; i++) {
+            LevelData levelData = levelDataList[currentLevel - 1];
             levelText.text = levelData.level.ToString();
             moveLimited = levelData.move;
             moveText.text = moveLimited.ToString();
             targetColor.sprite = GetColorSprite(levelData.targetColor);
             color = levelData.targetColor;
         }
+    }
+
+    public void LevelUp()
+    {
+        persistentData.TargetLevel += 1;
+        SceneManager.LoadScene("PlayScene");
+    }
+
+    public void Retry()
+    {
+        SceneManager.LoadScene("PlayScene");
     }
 }

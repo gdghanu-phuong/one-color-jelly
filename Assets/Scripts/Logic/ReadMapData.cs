@@ -7,6 +7,7 @@ public class ReadMapData : MonoBehaviour
 {
     public BlockController blockController;
     public ReadLevelData levelData;
+    [SerializeField] private PersistentData persistentData;
     public SceneController sceneController;
 
     public RectTransform mapParent;
@@ -18,7 +19,13 @@ public class ReadMapData : MonoBehaviour
     public int colCount;
     public int rowCount;
     private Vector2 gridOffset;
-    void Start() => ReadData();
+    void Start()
+    {
+        if (mapContainer == null && mapParent == null) return;
+        if (blockController == null) return;
+        int currentLevel = persistentData.TargetLevel;
+        ReadData(5);
+    }
 
     void SetUpMap(int rowCount, int colCount)
     {
@@ -66,7 +73,7 @@ public class ReadMapData : MonoBehaviour
             swipeController.sceneController = sceneController;
         }
     }
-    void ReadData()
+    void ReadData(int currentLevel)
     {
         TextAsset textAsset = Resources.Load<TextAsset>("Data/MapData");
         string[] lines = textAsset.text.Split(new[] { '\n', '\r' }, System.StringSplitOptions.RemoveEmptyEntries);
@@ -81,7 +88,7 @@ public class ReadMapData : MonoBehaviour
             string[] parts = trimmedLine.Split(',');
             if (int.TryParse(parts[0], out int levelNumber))
             {
-                if (levelNumber == levelData.targetLevel)
+                if (levelNumber == currentLevel)
                 {
                     isLevelFound = true;
                     levelLines.Clear();

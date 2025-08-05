@@ -5,15 +5,24 @@ public class SceneController : MonoBehaviour
 {
     public ReadMapData mapData;
     public ReadLevelData levelData;
+    [SerializeField] private PersistentData persistentData;
+
+    void Start()
+    {
+        if (mapData == null || levelData == null) return;
+    }
     public void Retry()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void CheckWinCondition()
+    public void CheckWinLoseCondition()
     {
         string targetColor = levelData.color;
-        bool isColorMatch = true;
+        int moveLimited = levelData.moveLimited;
+
+        bool isColorMatch = true;     
+        bool hasTargetColorBlock = false; 
 
         for (int i = 0; i < mapData.rowCount; i++)
         {
@@ -21,26 +30,30 @@ public class SceneController : MonoBehaviour
             {
                 var block = mapData.blockGrid[i, j];
                 if (block == null) continue;
-                string blockColor = block.Color;
-                Debug.Log($"Block ({i},{j}) color: {blockColor}");
+                if (block.Block.CompareTag("Empty")) continue;
 
-                if (!block.Block.CompareTag("Empty"))
+                string blockColor = block.Color;
+
+                if (blockColor != targetColor)
                 {
-                    if (blockColor != targetColor)
-                    {
-                        isColorMatch = false;
-                    } else
-                    {
-                        isColorMatch = true;
-                    }
+                    isColorMatch = false;
                 }
+                else
+                {
+                    hasTargetColorBlock = true;
+                }
+                
+                if (isColorMatch) break;
+            }
+            if (isColorMatch && moveLimited >= 0)
+            {
+                Debug.Log("You win!");
             }
         }
-        
-        if(isColorMatch)
+
+        if (!hasTargetColorBlock || moveLimited <= 0)
         {
-            Debug.Log("You Win!");
-            SceneManager.LoadScene("WinScene");
+            Debug.Log("You lose!");
         }
     }
 }

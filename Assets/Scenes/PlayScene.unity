@@ -450,11 +450,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelDataList: []
+  persistentData: {fileID: 11400000, guid: d211ac590b70b7a4bb8dedf8fe88a727, type: 2}
   levelText: {fileID: 146700245}
   targetColor: {fileID: 2145543483}
   moveText: {fileID: 1304484429}
   color: 
-  targetLevel: 2
   moveLimited: 0
 --- !u!1 &137036610
 GameObject:
@@ -1784,6 +1784,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockController: {fileID: 1501057775}
   levelData: {fileID: 107946217}
+  persistentData: {fileID: 11400000, guid: d211ac590b70b7a4bb8dedf8fe88a727, type: 2}
   sceneController: {fileID: 1503670548}
   mapParent: {fileID: 1931612500}
   mapContainer: {fileID: 137036611}

@@ -51,7 +51,6 @@ public class SwipeController : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             swipeController.blockColor = newColor;
             swipeController.levelData = levelData;
             swipeController.mapData = mapData;
-            //swipeController.sceneController = sceneController;
             touchedBlock.Block = newBlock;
         }
     }
@@ -59,7 +58,7 @@ public class SwipeController : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         if (oldColor == newColor) return;
         bool[,] isBlockChecked = new bool[mapData.rowCount, mapData.colCount];
-        Queue<(int, int)> queue = new Queue<(int, int)>();
+        Queue<(int, int)> queue = new();
         queue.Enqueue((row, col));
         isBlockChecked[row, col] = true;
 
@@ -137,8 +136,6 @@ public class SwipeController : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             SpreadColor(nextRow, nextCol, oldColor, blockColor);
         }
 
-        //if cannot move, return 
-        if (currentRow == row && currentCol == col) return;
 
         //create empty block at current position
         GameObject emptyBlock = Instantiate(mapData.blockController.emptyBlockPrefab, mapData.mapContainer);
@@ -158,7 +155,7 @@ public class SwipeController : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         transform.SetAsLastSibling();
         Vector2 targetPos = mapData.GetBlockPosition(col, row);
         StartCoroutine(MoveToPosition(targetPos));
-        sceneController.CheckWinCondition();
+        sceneController.CheckWinLoseCondition();
     }
 
     private System.Collections.IEnumerator MoveToPosition(Vector2 targetPos)
