@@ -6,6 +6,7 @@ public class HintController : MonoBehaviour
 {
     public GameObject handPrefab;
     public ReadMapData mapData;
+    public ReadLevelData levelData;
     public AdsController adsController;
     [SerializeField] private PersistentData persistentData;
     private GameObject currentHand;
@@ -61,12 +62,15 @@ public class HintController : MonoBehaviour
     {
         int currentLevel = persistentData.TargetLevel;
         mapData.ReadData(currentLevel);
+        levelData.DisplayData(currentLevel);
         currentLevelHints = GetHintsForLevel(currentLevel);
         currentHintIndex = 0;
         if (adsController != null)
         {
             isAdsLoaded = true;
             adsController.ShowInterstitialAd();
+            adsController.DestroyBannerAd();
+
         }
         if (isAdsLoaded)
         {

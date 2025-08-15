@@ -7,13 +7,14 @@ public class PersistentData : ScriptableObject
     private int moveLeft = 0;
     private int initialMoveLimited = 0;
     private string targetColor = "R";
-    public enum LoseReason { None, WrongColor, OutOfMove}
+    private bool isGameCompleted = false;
+    public enum LoseReason { None, WrongColor, OutOfMove }
     public LoseReason loseReason;
 
     public int TargetLevel
     {
         get { return targetLevel; }
-        set {targetLevel = value;}
+        set { targetLevel = value; }
     }
     public int MoveLeft
     {
@@ -33,4 +34,9 @@ public class PersistentData : ScriptableObject
         set { targetColor = value; }
     }
 
+    public bool IsGameCompleted
+    {
+        get { return isGameCompleted; }
+        set { isGameCompleted = value; }
+    }
 }

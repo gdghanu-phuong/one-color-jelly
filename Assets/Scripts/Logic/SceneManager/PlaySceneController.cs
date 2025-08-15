@@ -6,12 +6,24 @@ public class PlaySceneController : MonoBehaviour
 {
     public ReadMapData mapData;
     public ReadLevelData levelData;
+    public Animator sceneTransition;
     [SerializeField] private PersistentData persistentData;
 
     void Start()
     {
         if (mapData == null || levelData == null) return;
         persistentData.MoveLeft = 0;
+        if (sceneTransition != null)
+        {
+            sceneTransition.SetTrigger("PlaySceneTransition");
+
+        }
+    }
+
+    public void Retry()
+    {
+        mapData.ReadData(persistentData.TargetLevel);
+        levelData.DisplayData(persistentData.TargetLevel);
     }
 
     public void CheckWinLoseCondition()

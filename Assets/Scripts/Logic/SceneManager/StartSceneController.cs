@@ -4,16 +4,18 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class SceneLoader : MonoBehaviour
+public class StartSceneController : MonoBehaviour
 {
     public Slider loadingBar;
     public TextMeshProUGUI loadingProgress;
+    [SerializeField] private PersistentData persistentData;
     void Start ()
     {
         StartCoroutine(LoadAsynchronously(1));
     }
     IEnumerator LoadAsynchronously (int sceneIndex)
     {
+        
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
         while (!operation.isDone)
         {

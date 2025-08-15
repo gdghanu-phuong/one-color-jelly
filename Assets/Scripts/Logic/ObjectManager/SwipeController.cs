@@ -119,11 +119,11 @@ public class SwipeController : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         int dRow = 0, dCol = 0;
         if(Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
         {
-            dCol = direction.x > 0 ? 1 : -1; //swipe right or left
+            dCol = direction.x > 0 ? 1 : -1;
         }
         else
         {
-            dRow = direction.y < 0 ? 1 : -1; //swipe down or up
+            dRow = direction.y < 0 ? 1 : -1; 
         }
 
         int currentRow = row;
@@ -131,7 +131,6 @@ public class SwipeController : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         int nextRow = currentRow + dRow;
         int nextCol = currentCol + dCol;
 
-        //loop until find a valid block
         while (nextRow >= 0 && nextRow < mapData.rowCount && 
             nextCol >= 0 && nextCol < mapData.colCount &&
             mapData.blockGrid[nextRow, nextCol] != null &&
@@ -153,7 +152,6 @@ public class SwipeController : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
 
 
-        //create empty block at current position
         GameObject emptyBlock = Instantiate(mapData.blockController.emptyBlockPrefab, mapData.mapContainer);
         if(emptyBlock.TryGetComponent<RectTransform>(out var rt))
         {
@@ -197,7 +195,7 @@ public class SwipeController : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
 
         rectTransform.anchoredPosition = targetPos;
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.1f);
         if (hintController != null)
         {
             hintController.OnPlayerMove(startRow, startCol);

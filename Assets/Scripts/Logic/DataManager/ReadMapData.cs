@@ -29,7 +29,6 @@ public class ReadMapData : MonoBehaviour
         }
 
         int currentLevel = persistentData.TargetLevel;
-        //int currentLevel = 20;
         ReadData(currentLevel);
     }
 

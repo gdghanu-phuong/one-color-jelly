@@ -42,7 +42,7 @@ public class AdsController : MonoBehaviour
         _bannerView.LoadAd(adRequest);
     }
 
-    public void DestroyAd()
+    public void DestroyBannerAd()
     {
         if(_bannerView != null)
         {
@@ -55,10 +55,9 @@ public class AdsController : MonoBehaviour
     {
         if(_bannerView != null)
         {
-            DestroyAd();
+            DestroyBannerAd();
         }
-        AdSize adSize = AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(AdSize.FullWidth);
-        _bannerView = new BannerView(bannerId, adSize, AdPosition.Bottom);
+        _bannerView = new BannerView(bannerId, AdSize.IABBanner, AdPosition.Bottom);
     }
 
     public void LoadInterstitialAd()
@@ -100,7 +99,14 @@ public class AdsController : MonoBehaviour
             }
         }
     }
-
+    private void HandleInterstitialClosed()
+    {
+        if (blackBackground != null)
+        {
+            blackBackground.SetActive(false);
+        }
+        LoadBannerAd();
+    }
     private void InterstitialEvent(InterstitialAd interstitialAd)
     {
         interstitialAd.OnAdPaid += (AdValue adValue) =>
@@ -121,12 +127,7 @@ public class AdsController : MonoBehaviour
         };
         interstitialAd.OnAdFullScreenContentClosed += () =>
         {
-            Debug.Log("Interstitial Ad Full Screen Content Closed");
-            if (blackBackground != null)
-            {
-                blackBackground.SetActive(false);
-            }
-            LoadInterstitialAd(); 
+           HandleInterstitialClosed();
         };
         interstitialAd.OnAdFullScreenContentFailed += (AdError adError) =>
         {

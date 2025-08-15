@@ -22,10 +22,8 @@ public class ReadLevelData : MonoBehaviour
         if (targetColor == null) return;
 
         int currentLevel = persistentData.TargetLevel;
-        //int currentLevel = 20;
         ReadData();
         DisplayData(currentLevel);
-        DisplayCurrentLevel(currentLevel);
     }
 
     void Awake()
@@ -67,7 +65,7 @@ public class ReadLevelData : MonoBehaviour
             levelDataList.Add(new LevelData(level, targetColor, move));
         }
     }
-    void DisplayData(int currentLevel) 
+    public void DisplayData(int currentLevel) 
     {
         if (currentLevel < 1 || currentLevel > 20) return;
         LevelData levelData = levelDataList[currentLevel - 1];
@@ -77,10 +75,5 @@ public class ReadLevelData : MonoBehaviour
         moveText.text = moveLimited.ToString();
         targetColor.sprite = GetColorSprite(levelData.targetColor);
         persistentData.TargetColor = levelData.targetColor;
-    }
-
-    public void DisplayCurrentLevel(int currentLevel)
-    {
-        levelText.text = currentLevel.ToString();
     }
 }
