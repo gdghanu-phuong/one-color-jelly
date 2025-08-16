@@ -27,7 +27,7 @@ public class LoseSceneController : MonoBehaviour
 
     public void Retry()
     {
-        SceneManager.LoadScene("StartScene");
+        SceneManager.LoadScene("LoadingScene");
     }
 
     void DisplayLoseTitle()
