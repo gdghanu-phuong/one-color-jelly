@@ -17,9 +17,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/WinScene.unity
     guid: d9cd1663daa6e2b4ebf68c340c8c2149
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/AdScene.unity
     guid: 5c97838f5aee0f449ac25f0683975a1f
+  - enabled: 1
+    path: Assets/Scenes/LoadingScene.unity
+    guid: e004e38edc13a9248a75afec13ba62df
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

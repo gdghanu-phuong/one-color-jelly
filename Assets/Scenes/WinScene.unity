@@ -218,6 +218,7 @@ MonoBehaviour:
   levelData: {fileID: 157419790}
   persistentData: {fileID: 11400000, guid: d211ac590b70b7a4bb8dedf8fe88a727, type: 2}
   sceneTransition: {fileID: 1343708400}
+  randomLevels: 
 --- !u!1 &696668935
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,6 +396,53 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &924969184
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 924969185}
+  - component: {fileID: 924969186}
+  m_Layer: 0
+  m_Name: AdsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &924969185
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 924969184}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -82.933, y: -113.54246, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &924969186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 924969184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d26631ecb0021c34cbfd379c612bc4a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bannerId: ca-app-pub-9395415582353467/8097162965
+  blackBackground: {fileID: 0}
+  interstitialId: 
 --- !u!1 &938062556
 GameObject:
   m_ObjectHideFlags: 0
@@ -1803,4 +1851,5 @@ SceneRoots:
   - {fileID: 1422069483}
   - {fileID: 157419788}
   - {fileID: 600025637}
+  - {fileID: 924969185}
   - {fileID: 825113155}

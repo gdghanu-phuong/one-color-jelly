@@ -14,6 +14,7 @@ public class AdsController : MonoBehaviour
     private InterstitialAd _interstitialAd;
     void Start()
     {
+        if (bannerId == null || interstitialId == null) return; 
         MobileAds.RaiseAdEventsOnUnityMainThread = true;
         MobileAds.Initialize(initStatus =>
         {
@@ -39,6 +40,7 @@ public class AdsController : MonoBehaviour
             CreateBannerView();
         }
         var adRequest = new AdRequest();
+        adRequest.Extras.Add("collapsible", "bottom");
         _bannerView.LoadAd(adRequest);
     }
 
@@ -58,6 +60,17 @@ public class AdsController : MonoBehaviour
             DestroyBannerAd();
         }
         _bannerView = new BannerView(bannerId, AdSize.IABBanner, AdPosition.Bottom);
+        _bannerView.OnBannerAdLoaded += () =>
+        {
+            if (_bannerView.IsCollapsible())
+            {
+                Debug.Log("Banner Ad Loaded and is collapsible");
+            }
+            else
+            {
+                Debug.Log("Banner Ad Loaded but is not collapsible");
+            }
+        };
     }
 
     public void LoadInterstitialAd()

@@ -45,7 +45,7 @@ public class WinSceneController : MonoBehaviour
             persistentData.TargetLevel = randomLevel.Next(11, 20);
         }
 
-        SceneManager.LoadScene("StartScene");
+        SceneManager.LoadScene("LoadingScene");
     }
 
 }
