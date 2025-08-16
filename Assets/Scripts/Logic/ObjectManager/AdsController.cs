@@ -4,11 +4,9 @@ using UnityEngine.SceneManagement;
 using Unity.Jobs;
 public class AdsController : MonoBehaviour
 {
-    [SerializeField]
-    private string bannerId;
+    readonly string bannerId = "ca-app-pub-9395415582353467/8097162965";
     [SerializeField] private GameObject blackBackground;
-    [SerializeField]
-    private string interstitialId;
+    readonly string interstitialId = "ca-app-pub-9395415582353467/9440403915";
 
     BannerView _bannerView;
     private InterstitialAd _interstitialAd;
