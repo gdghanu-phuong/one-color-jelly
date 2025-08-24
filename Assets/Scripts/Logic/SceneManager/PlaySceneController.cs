@@ -18,12 +18,18 @@ public class PlaySceneController : MonoBehaviour
             sceneTransition.SetTrigger("PlaySceneTransition");
 
         }
+        AdsController.instance.bannerAds.ShowBannerAd();
     }
 
     public void Retry()
     {
         mapData.ReadData(persistentData.TargetLevel);
         levelData.DisplayData(persistentData.TargetLevel);
+        GameObject hand = GameObject.FindGameObjectWithTag("Hand");
+        if (hand != null)
+        {
+            hand.SetActive(false);
+        }
     }
 
     public void CheckWinLoseCondition()

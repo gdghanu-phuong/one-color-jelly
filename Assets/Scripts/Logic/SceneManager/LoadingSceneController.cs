@@ -23,6 +23,7 @@ public class LoadingSquare : MonoBehaviour
         }
 
         StartCoroutine(AnimateLoading());
+        AdsController.instance.bannerAds.ShowBannerAd();
     }
 
     void SpawnBlock(string color, Transform images, bool isScaleUp)

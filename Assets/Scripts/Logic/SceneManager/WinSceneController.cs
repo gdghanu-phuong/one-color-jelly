@@ -21,7 +21,9 @@ public class WinSceneController : MonoBehaviour
             sceneTransition.SetTrigger("WinSceneTransition");
         }
         DisplayWinData();
+        AdsController.instance.bannerAds.ShowBannerAd();
     }
+
 
     void DisplayWinData()
     {

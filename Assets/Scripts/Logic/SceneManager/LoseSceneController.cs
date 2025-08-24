@@ -23,6 +23,8 @@ public class LoseSceneController : MonoBehaviour
         }
         DisplayLoseTitle();
         DisplayLoseData();
+        AdsController.instance.bannerAds.ShowBannerAd();
+
     }
 
     public void Retry()

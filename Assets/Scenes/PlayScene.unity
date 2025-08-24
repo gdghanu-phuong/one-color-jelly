@@ -636,6 +636,9 @@ GameObject:
   m_Component:
   - component: {fileID: 152673954}
   - component: {fileID: 152673955}
+  - component: {fileID: 152673958}
+  - component: {fileID: 152673957}
+  - component: {fileID: 152673956}
   m_Layer: 0
   m_Name: AdsManager
   m_TagString: Untagged
@@ -670,9 +673,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d26631ecb0021c34cbfd379c612bc4a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bannerId: ca-app-pub-9395415582353467/8097162965
-  blackBackground: {fileID: 2050890616}
-  interstitialId: ca-app-pub-9395415582353467/9440403915
+  initializeAds: {fileID: 152673958}
+  bannerAds: {fileID: 152673956}
+  interstitialAds: {fileID: 152673957}
+--- !u!114 &152673956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 152673953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e951585cb9b2b5f4ba738f48566aff9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  androidAdUnitId: Banner_Android
+  iosAdUnitId: Banner_iOS
+--- !u!114 &152673957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 152673953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a1452390cf890f44b9c47c89b20f0e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  androidAdUnitId: Interstitial_Android
+  iosAdUnitId: Interstitial_iOS
+  bannerAds: {fileID: 152673956}
+--- !u!114 &152673958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 152673953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78f3794a81ca9834aa45888fa19223a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  androidGameId: 5925959
+  iosGameId: 5925958
+  isTesting: 1
 --- !u!1 &500280832
 GameObject:
   m_ObjectHideFlags: 0
@@ -873,10 +920,10 @@ MonoBehaviour:
   handPrefab: {fileID: 8597225415834181329, guid: 012c2f0ec61059740b9273a036f3f295, type: 3}
   mapData: {fileID: 1317342180}
   levelData: {fileID: 107946217}
-  adsController: {fileID: 152673955}
   persistentData: {fileID: 11400000, guid: d211ac590b70b7a4bb8dedf8fe88a727, type: 2}
   mapContainer: {fileID: 137036611}
   hintDataList: []
+  isAdsLoaded: 0
 --- !u!1 &1085971519
 GameObject:
   m_ObjectHideFlags: 0
@@ -2398,7 +2445,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 152673955}
         m_TargetAssemblyTypeName: AdsController, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: ShowInterstitialAd
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
