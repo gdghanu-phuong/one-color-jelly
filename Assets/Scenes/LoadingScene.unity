@@ -946,7 +946,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d26631ecb0021c34cbfd379c612bc4a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bannerId: ca-app-pub-7891888857433157/6291953246
   blackBackground: {fileID: 0}
+  interstitialId: ca-app-pub-7891888857433157/5529018998
 --- !u!1 &1757473250
 GameObject:
   m_ObjectHideFlags: 0

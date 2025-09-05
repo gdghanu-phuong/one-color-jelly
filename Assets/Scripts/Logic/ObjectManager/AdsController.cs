@@ -1,12 +1,10 @@
 using UnityEngine;
 using GoogleMobileAds.Api;
-using UnityEngine.SceneManagement;
-using Unity.Jobs;
 public class AdsController : MonoBehaviour
 {
-    readonly string bannerId = "ca-app-pub-7891888857433157/6291953246";
+    [SerializeField] string bannerId;
     [SerializeField] private GameObject blackBackground;
-    readonly string interstitialId = "ca-app-pub-7891888857433157/5529018998";
+    [SerializeField] string interstitialId;
 
     BannerView _bannerView;
     private InterstitialAd _interstitialAd;

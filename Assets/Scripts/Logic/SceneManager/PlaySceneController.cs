@@ -22,6 +22,11 @@ public class PlaySceneController : MonoBehaviour
 
     public void Retry()
     {
+        GameObject hand = GameObject.FindGameObjectWithTag("Hand");
+        if (hand != null)
+        {
+            hand.SetActive(false);
+        }
         mapData.ReadData(persistentData.TargetLevel);
         levelData.DisplayData(persistentData.TargetLevel);
     }

@@ -1718,7 +1718,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bannerId: ca-app-pub-9395415582353467/8097162965
   blackBackground: {fileID: 0}
-  interstitialId: 
+  interstitialId: ca-app-pub-7891888857433157/5529018998
 --- !u!1 &1410406914
 GameObject:
   m_ObjectHideFlags: 0
