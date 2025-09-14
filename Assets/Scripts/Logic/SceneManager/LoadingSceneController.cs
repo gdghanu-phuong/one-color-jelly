@@ -7,7 +7,7 @@ public class LoadingSquare : MonoBehaviour
     public AdsController adsController;
     public Transform[] blockImages;                 
     public Animator sceneTransition;
-    private string[] colors = { "P", "R", "Y", "G", "B" }; 
+    private string[] colors = { "P", "R", "Y", "G" }; 
     private int currentColorIndex = 0;
 
     void Start()
@@ -22,7 +22,7 @@ public class LoadingSquare : MonoBehaviour
             SpawnBlock("P", block, false);
         }
 
-        StartCoroutine(AnimateLoading());
+        StartCoroutine(LoadSceneAsync("StartScene"));
     }
 
     void SpawnBlock(string color, Transform images, bool isScaleUp)
@@ -62,23 +62,33 @@ public class LoadingSquare : MonoBehaviour
         target.localScale = endScale;
     }
 
-    System.Collections.IEnumerator AnimateLoading()
+    System.Collections.IEnumerator LoadSceneAsync(string sceneName)
     {
-        while (true)
-        {
-            yield return new WaitForSeconds(0.5f);
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
+        operation.allowSceneActivation = false;
 
-            currentColorIndex = (currentColorIndex + 1) % colors.Length;
-            string nextColor = colors[currentColorIndex];
-            foreach (var block in blockImages)
+        while(!operation.isDone)
+        {
+            float progress = Mathf.Clamp01(operation.progress / 0.9f);
+            int colorIndex = Mathf.FloorToInt(progress * (colors.Length - 1));
+            if (colorIndex != currentColorIndex && colorIndex < colors.Length)
             {
-                SpawnBlock(nextColor, block, true);
-                yield return new WaitForSeconds(0.3f); 
+                currentColorIndex = colorIndex;
+                string nextColor = colors[currentColorIndex];
+                foreach (var block in blockImages)
+                {
+                    SpawnBlock(nextColor, block, true);
+                    yield return new WaitForSeconds(0.1f);
+                }
             }
-            if (currentColorIndex >= 4)
+
+            if (operation.progress >= 0.9f)
             {
-                SceneManager.LoadScene("StartScene");
+                yield return new WaitForSeconds(0.5f);
+                operation.allowSceneActivation = true;
             }
+
+            yield return null;
         }
     }
 }

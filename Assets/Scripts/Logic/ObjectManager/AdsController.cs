@@ -55,7 +55,15 @@ public class AdsController : MonoBehaviour
         {
             DestroyBannerAd();
         }
-        _bannerView = new BannerView(bannerId, AdSize.IABBanner, AdPosition.Bottom);
+        int screenWidth = Screen.width;
+        int screenHeight = Screen.height;
+
+        int bannerWidth = AdSize.Banner.Width;
+        int bannerHeight = AdSize.Banner.Height;
+
+        int posX = (screenWidth - bannerWidth) / 2;
+        int posY = screenHeight - bannerHeight;
+        _bannerView = new BannerView(bannerId, AdSize.Banner, posX, posY);
         _bannerView.OnBannerAdLoaded += () =>
         {
             if (_bannerView.IsCollapsible())
